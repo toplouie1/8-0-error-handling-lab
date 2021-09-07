@@ -118,6 +118,9 @@ describe("getTotalOfAllProductsByPriceRange()", () => {
       0
     );
 
+    // `max` or `min` is less than 0.
+    expect(getTotalOfAllProductsByPriceRange(products, -500, 50000)).toEqual(0);
+
     // `max` is equal to 0.
     expect(getTotalOfAllProductsByPriceRange(products, 0, 0)).toEqual(0);
   });
