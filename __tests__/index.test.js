@@ -70,15 +70,11 @@ describe("filterProductsByPriceRange()", () => {
   });
 
   test("should throw an error if either the `min` or `max` value is less than 0", () => {
-    expect(() => filterProductsByPriceRange([], -10000, 30000)).toThrow();
+    expect(() => filterProductsByPriceRange(products, -10000, 30000)).toThrow();
   });
 
   test("should throw an error if the `max` value is equal to 0", () => {
-    expect(() => filterProductsByPriceRange([], 0, 0)).toThrow();
-  });
-
-  test("should throw an error if max or min is less than 0", () => {
-    expect(getTotalOfAllProductsByPriceRange(products, -500, 50000)).toEqual(0);
+    expect(() => filterProductsByPriceRange(products, 0, 0)).toThrow();
   });
 });
 
