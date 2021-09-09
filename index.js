@@ -20,9 +20,7 @@ const exampleProducts = [
 */
 function getCartTotal(cart) {
 
-  if(cart.length === 0 ){
-    throw ("The cart is empty");
-  }
+  if(cart.length === 0 ) throw "error";
 
   let result = 0;
   for (let product of cart) {
@@ -44,34 +42,24 @@ function getCartTotal(cart) {
 function filterProductsByPriceRange(products, min, max) {
 
  // products array is empty 
-  if(products.length === 0){
-    throw "`products` array is empty";
-  }
-// either min or max is not a number 
-  if(!min === Number || !max === Number){
-    throw "`min` or `max` is not a number";
-  }
-  //if max is === 0;
-  if(max === 0){
-    throw "`max` is equal to `0`"
-  }
-  // min is greater than max 
-  if(min > max){
-    throw "`min` is greater than `max` "
-  }
-  // either min or max is less than 0 
-  if(min < 0 || max < 0 ){
-    throw "Either `min` or `max` is less than `0`"
-  }
+  if(products.length === 0) throw "error";
 
- for (let product of products){
- if(product !== product.priceInCents) {
-    throw "Any of the products in the `products` array does not have a `priceInCents` key"
-  }
-}
+// either min or max is not a number 
+  if(typeof min !== "number" || typeof max !== "number") throw "error"; 
+
+  //if max is === 0;
+  if(max === 0) throw "error";
+  
+  // min is greater than max 
+  if(min > max) throw "error";
+
+  // either min or max is less than 0 
+  if(min < 0 || max < 0 ) throw "error";
+
 
   const result = [];
   for (let product of products) {
+    if(!product.priceInCents) throw "error";
     if (product.priceInCents >= min && product.priceInCents <= max) {
       result.push(product);
     }
@@ -83,24 +71,13 @@ function filterProductsByPriceRange(products, min, max) {
   If any errors occur in this function, it should return `0`.
 */
 function getTotalOfAllProductsByPriceRange(products, min, max) {
-
-  for (let product of products) {
-    if (product.priceInCents >= min && product.priceInCents <= max) {
-      throw 0;
-    }
+  try {
+    const filteredProducts = filterProductsByPriceRange(products, min, max);
+    const total = getCartTotal(filteredProducts);
+    return total;
+  } catch (error) {
+    return 0;
   }
-
-  if(!products ||  !min || !max ){
-    throw 0;
-
-  }
- 
-
-
-  const filteredProducts = filterProductsByPriceRange(products, min, max);
-  const total = getCartTotal(filteredProducts);
-
-  return total;
 }
 
 
